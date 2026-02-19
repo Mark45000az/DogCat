@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="theme-color" content="#f7fbff"/>
+  <title>โซนคนรักหมาแมว</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Nunito:wght@600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css"> 
+
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo" aria-hidden="true">
+        <h2>🐾</h2>
+      </div>
+      <div class="title-wrap">
+        <h1>โลกของน้องหมาและน้องแมว</h1>
+        <p class="subtitle">รวมภาพและวิดีโอความน่ารักของเพื่อนซี้สี่ขา</p>
+      </div>
+      
+      <button class="theme-toggle" id="themeToggle" aria-label="เปลี่ยนโหมดกลางวัน/กลางคืน">
+        <span class="theme-icon">☀️</span>
+      </button>
+    </header>
+
+    <main class="grid">
+      <section class="card" aria-labelledby="dog-title">
+        <div id="dog-title" class="pet-title dog-theme">🐕 โซนน้องหมา</div>
+
+        <div class="media">
+          <img src="picture/dog.jpg" alt="รูปสุนัขน่ารัก" onerror="this.src='https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&q=80&w=800'">
+          <div class="video-wrapper" aria-hidden="false">
+            <iframe src="https://www.youtube.com/embed/zm00-6Tt_g8" title="วิดีโอน้องหมา" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          </div>
+        </div>
+
+        <div class="meta">
+          <div class="tags">
+            <span class="tag">สายพันธุ์: ผสม</span>
+            <span class="tag">อายุ: 2 ปี</span>
+          </div>
+          <div class="actions">
+            <button class="btn btn-primary">ชอบ</button>
+            <button class="btn btn-outline">บันทึก</button>
+          </div>
+        </div>
+
+        <p class="caption">ภาพและวิดีโอรวมความน่ารักของน้องหมา เลื่อนดูเพื่อชมมุมต่างๆ</p>
+      </section>
+
+      <section class="card" aria-labelledby="cat-title">
+        <div id="cat-title" class="pet-title cat-theme">🐈 โซนน้องแมว</div>
+
+        <div class="media">
+          <img src="picture/cat.jpg" alt="รูปแมวน่ารัก" onerror="this.src='https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&q=80&w=800'">
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/z3U0udLH974" title="วิดีโอน้องแมว" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          </div>
+        </div>
+
+        <div class="meta">
+          <div class="tags">
+            <span class="tag">สายพันธุ์: ไทย</span>
+            <span class="tag">นิสัย: ขี้เล่น</span>
+          </div>
+          <div class="actions">
+            <button class="btn btn-primary">ชอบ</button>
+            <button class="btn btn-outline">บันทึก</button>
+          </div>
+        </div>
+
+        <p class="caption">รวมคลิปฮาและภาพน่ารักของน้องแมว เหมาะสำหรับคนรักแมวทุกวัย</p>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // ส่วนนี้คือ JavaScript (Logic) ยังคงไว้ใน HTML เพื่อความง่าย หรือจะแยกเป็นไฟล์ .js ก็ได้ครับ
+    const toggleBtn = document.getElementById('themeToggle');
+    const iconSpan = toggleBtn.querySelector('.theme-icon');
+    const htmlEl = document.documentElement;
+
+    function initTheme() {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        applyDark(true);
+      } else {
+        applyLight(true);
+      }
+    }
+
+    function applyDark(isInit = false) {
+      htmlEl.setAttribute('data-theme', 'dark');
+      iconSpan.textContent = '🌙';
+      if(!isInit) animateIcon();
+      localStorage.setItem('theme', 'dark');
+    }
+
+    function applyLight(isInit = false) {
+      htmlEl.setAttribute('data-theme', 'light');
+      iconSpan.textContent = '☀️';
+      if(!isInit) animateIcon();
+      localStorage.setItem('theme', 'light');
+    }
+
+    function animateIcon() {
+      iconSpan.classList.add('rotate-anim');
+      setTimeout(() => {
+        iconSpan.classList.remove('rotate-anim');
+      }, 500);
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      const currentTheme = htmlEl.getAttribute('data-theme');
+      if (currentTheme === 'dark') {
+        applyLight();
+      } else {
+        applyDark();
+      }
+    });
+
+    initTheme();
+  </script>
+</body>
+</html>
